@@ -1,4 +1,8 @@
 app:
-    resource: "@SonataAdminBundle/Resources/config/routing/sonata_admin.xml"
-    prefix: /
-    
+  resource: "@AppBundle/Controller/"
+  type:     annotation
+sonata_admin:
+  resource: "@SonataAdminBundle/Resources/config/routing/sonata_admin.xml"
+  prefix: /
+logout:
+  path: /logout
