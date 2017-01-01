@@ -1,0 +1,10 @@
+{% block model_list_widget %}
+    {% spaceless %}
+        <div class="model_list_edit_container">
+        {% for val in value | reverse %}
+            <p class="model_list_edit_row">{{ val }}</p>
+        {% endfor %}
+        </div>
+    {% endspaceless %}
+{% endblock %}
+

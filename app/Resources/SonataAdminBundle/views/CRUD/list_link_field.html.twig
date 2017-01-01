@@ -1,0 +1,7 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field %}
+    <a class="sonata-link-identifier" href="{{ admin.listFieldDescriptions['fichier.nomFichier'].options.path ~ value }}" target="_blank">{% spaceless %}
+            {{ object.libelle }}
+    {% endspaceless %}</a>
+{% endblock %}

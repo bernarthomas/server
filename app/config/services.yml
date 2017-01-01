@@ -4,6 +4,45 @@ parameters:
 #    parameter_name: value
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    admin.action:
+        class: AppBundle\Admin\ActionAdmin
+        arguments: [~, AppBundle\Entity\Action, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Actions }
+    admin.categorie:
+        class: AppBundle\Admin\CategorieAdmin
+        arguments: [~, AppBundle\Entity\Categorie, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Categories }
+    admin.historique:
+        class: AppBundle\Admin\HistoriqueAdmin
+        arguments: [~, AppBundle\Entity\Historique, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Historique }
+    admin.utilisateur:
+        class: AppBundle\Admin\UtilisateurAdmin
+        arguments: [~, AppBundle\Entity\Utilisateur, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Utilisateurs }
+    admin.document:
+        class: AppBundle\Admin\DocumentAdmin
+        arguments: [~, AppBundle\Entity\Document, ~, '%upload_url%', '@service.document']
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Documents }
+    form.type.model_list:
+        class: AppBundle\Form\Type\ModelListType
+        tags:
+            - { name: form.type }
+    repository.action:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Action
+    repository.utilisateur:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Utilisateur
+    service.document:
+        class: AppBundle\Service\Document
+        arguments: ['@repository.action', '@security.token_storage', %upload_path%]

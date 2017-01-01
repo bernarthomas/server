@@ -1,0 +1,18 @@
+{% extends admin.getTemplate('base_list_field') %}
+{% block field %}
+    {% set route_name = field_description.options.route.name %}
+    {% if field_description.hasassociationadmin and field_description.associationadmin.hasRoute(route_name) %}
+        {% for element in value %}
+            {%  if loop.last %}
+                {{ block('relation_value') }}
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        {% for element in value%}
+            {% if loop.last %} {{ block('relation_value') }} {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+{%- block relation_value -%}
+    {{ element|render_relation_element(field_description) }}
+{%- endblock -%}
